@@ -1,59 +1,144 @@
-/* ========================================
-
-1. GLOBAL STYLES
-   ======================================== */
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
+/* ===== THEME VARIABLES ===== */
 :root {
---bg: #08080d;
---card: #11111b;
---purple: #a855f7;
---light-purple: #c084fc;
---text: #ffffff;
---muted: #a1a1b2;
---border: rgba(255, 255, 255, 0.09);
+    --purple: #a855f7;
+    --light-purple: #c084fc;
+    --muted: #a1a1b2;
+    --border: rgba(192, 132, 252, 0.18);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  }
+/* ===== SPACE PORTFOLIO BACKGROUND ===== */
 
 html {
-scroll-behavior: smooth;
-scroll-padding-top: 90px;
+    scroll-behavior: smooth;
 }
 
 body {
-font-family: 'Inter', Arial, sans-serif;
-background: var(--bg);
-color: var(--text);
-overflow-x: hidden;
-line-height: 1.6;
-position: relative;
+    margin: 0;
+    min-height: 100vh;
+    color: #ffffff;
+    background: #02030a;
+    font-family: "Segoe UI", Arial, sans-serif;
+    overflow-x: hidden;
+    position: relative;
+    isolation: isolate;
 }
-
-/* Soft purple background glow */
-
+/* Starfield layer */
 body::before {
-content: "";
-position: fixed;
-top: -180px;
-left: 50%;
-transform: translateX(-50%);
-width: 700px;
-height: 500px;
-background: rgba(168, 85, 247, 0.13);
-filter: blur(130px);
-border-radius: 50%;
-pointer-events: none;
-z-index: -1;
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+
+    background-image:
+        radial-gradient(2px 2px at 20px 30px, #ffffff 50%, transparent 100%),
+        radial-gradient(1px 1px at 100px 150px, #ffffff 50%, transparent 100%),
+        radial-gradient(2px 2px at 180px 80px, #9fcaff 50%, transparent 100%),
+        radial-gradient(1px 1px at 250px 220px, #ffffff 50%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 320px 120px, #b9caff 50%, transparent 100%);
+
+    background-size:
+        350px 280px,
+        270px 320px,
+        400px 350px,
+        300px 300px,
+        380px 400px;
+
+    opacity: 0.65;
+    animation: starTwinkle 5s ease-in-out infinite alternate;
 }
 
-a {
-color: inherit;
+/* Subtle blue cosmic glow */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 45%,
+            rgba(38, 105, 255, 0.10),
+            transparent 45%
+        );
+
+    animation: cosmicGlow 8s ease-in-out infinite alternate;
+}
+
+/* Stars gently twinkle */
+@keyframes starTwinkle {
+    from {
+        opacity: 0.35;
+    }
+
+    to {
+        opacity: 0.85;
+    }
+}
+
+/* Slow atmospheric glow */
+@keyframes cosmicGlow {
+    from {
+        opacity: 0.45;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Keep the main content above the background */
+header,
+nav,
+main,
+section,
+footer {
+    position: relative;
+}
+
+/* Optional: glass effect for cards */
+.project-card,
+.skill-card,
+.certificate-card {
+    background: rgba(10, 14, 35, 0.65);
+    border: 1px solid rgba(125, 145, 255, 0.22);
+    border-radius: 16px;
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.project-card:hover,
+.skill-card:hover,
+.certificate-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(150, 120, 255, 0.8);
+    box-shadow: 0 0 25px rgba(100, 80, 255, 0.18);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    body {
+        background-attachment: scroll;
+        background-position: center center;
+    }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 /* ========================================
@@ -716,4 +801,13 @@ transform: scale(1.04);
 
 .certificate-card .certificate-btn {
 margin-top: auto;
+}
+
+
+/* ===== EARTH BACKGROUND TUNING ===== */
+@media (max-width: 768px) {
+    body::before {
+        background-position: center center;
+        background-size: cover;
+    }
 }
